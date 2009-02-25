@@ -22,10 +22,8 @@ public class Calculator extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		mContext = this;
-		
-		setContentView(R.layout.main);
 
-		
+		setContentView(R.layout.main);
 
 		input1 = (EditText) findViewById(R.id.input1);
 		input2 = (EditText) findViewById(R.id.input2);
@@ -91,23 +89,45 @@ public class Calculator extends Activity {
 						|| (input2.getText().length() == 0)
 						|| (input2.getText().toString() == " ")) {
 
-					show = new AlertDialog.Builder(mContext)
-							.setTitle("Error")
+					show = new AlertDialog.Builder(mContext).setTitle("Error")
 							.setMessage("Some inputs are empty")
 							.setPositiveButton("OK", null).show();
-				}else{
-					
-					
-					
-					
-					double result = new Double(input1.getText().toString()) +  new Double(input2.getText().toString());
 
-					
+				} else if (operator.getText().equals("")) {
+
+					show = new AlertDialog.Builder(mContext).setTitle("Error")
+							.setMessage("Operator is null").setPositiveButton(
+									"OK", null).show();
+
+				} else if (operator.getText().equals("+")) {
+
+					double result = new Double(input1.getText().toString())
+							+ new Double(input2.getText().toString());
+
 					solution.setText(Double.toString(result));
+
+				} else if (operator.getText().equals("-")) {
+
+					double result = new Double(input1.getText().toString())
+							- new Double(input2.getText().toString());
+
+					solution.setText(Double.toString(result));
+
+				} else if (operator.getText().equals("*")) {
+
+					double result = new Double(input1.getText().toString())
+							* new Double(input2.getText().toString());
+
+					solution.setText(Double.toString(result));
+
+				} else if (operator.getText().equals("/")) {
 					
-					
-					
-					
+
+					double result = new Double(input1.getText().toString())
+							/ new Double(input2.getText().toString());
+
+					solution.setText(Double.toString(result));
+
 				}
 
 			}
