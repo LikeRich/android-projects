@@ -35,12 +35,12 @@ public class VideoPlayer extends Activity implements SurfaceHolder.Callback{
 		holder.addCallback(this);
 		holder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
 		holder.setFixedSize(getWindow().getWindowManager().getDefaultDisplay().getWidth(), getWindow().getWindowManager().getDefaultDisplay().getHeight());
-
+		mMediaPlayer = new MediaPlayer();
+		mMediaPlayer.setDisplay(holder);
 	}
 
 	private void iniPlayer() {
-		mMediaPlayer = new MediaPlayer();
-		mMediaPlayer.setDisplay(holder);
+		
 		try {
 			mMediaPlayer.setDataSource(videoPath);		
 			mMediaPlayer.prepare();
