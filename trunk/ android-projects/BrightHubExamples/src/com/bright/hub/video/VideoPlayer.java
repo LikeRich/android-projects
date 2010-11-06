@@ -45,13 +45,10 @@ public class VideoPlayer extends Activity implements SurfaceHolder.Callback{
 			mMediaPlayer.setDataSource(videoPath);		
 			mMediaPlayer.prepare();
 		} catch (IllegalArgumentException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IllegalStateException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
@@ -69,6 +66,7 @@ public class VideoPlayer extends Activity implements SurfaceHolder.Callback{
 		super.onDestroy();
 		releaseMediaPlayer();
 	}
+
 
 	private void releaseMediaPlayer() {
 		if (mMediaPlayer != null) {
