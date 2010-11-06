@@ -6,16 +6,13 @@ import android.app.Activity;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import com.bright.hub.R;
 
-public class VideoPlayer extends Activity implements SurfaceHolder.Callback {
+public class VideoPlayer extends Activity implements SurfaceHolder.Callback{
 
-	private int mVideoWidth = 320;
-	private int mVideoHeight = 480;
 	private MediaPlayer mMediaPlayer;
 	private SurfaceView mPreview;
 	private SurfaceHolder holder;
@@ -34,27 +31,19 @@ public class VideoPlayer extends Activity implements SurfaceHolder.Callback {
 	private void iniElements() {
 
 		mPreview = (SurfaceView) findViewById(R.id.screen_tutorial_video_surface);
-
 		holder = mPreview.getHolder();
 		holder.addCallback(this);
 		holder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
-		holder.setSizeFromLayout();
-		holder.setFixedSize(mVideoWidth, mVideoHeight);
-		iniPlayer();
+		holder.setFixedSize(getWindow().getWindowManager().getDefaultDisplay().getWidth(), getWindow().getWindowManager().getDefaultDisplay().getHeight());
 
 	}
 
 	private void iniPlayer() {
 		mMediaPlayer = new MediaPlayer();
-		Log.e("VideoPlayer","After create Media Player");	
-		
 		mMediaPlayer.setDisplay(holder);
 		try {
-			mMediaPlayer.setDataSource(videoPath);
-			Log.e("VideoPlayer","After DataSource");	
-			Log.e("VideoPlayer","Video Path "+videoPath);	
+			mMediaPlayer.setDataSource(videoPath);		
 			mMediaPlayer.prepare();
-			Log.e("VideoPlayer","After Prepare");	
 		} catch (IllegalArgumentException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -65,7 +54,6 @@ public class VideoPlayer extends Activity implements SurfaceHolder.Callback {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		Log.e("VideoPlayer","Before Start");
 		mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
 		mMediaPlayer.start();
 	}
@@ -74,14 +62,12 @@ public class VideoPlayer extends Activity implements SurfaceHolder.Callback {
 	protected void onPause() {
 		super.onPause();
 		releaseMediaPlayer();
-		doCleanUp();
 	}
 
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
 		releaseMediaPlayer();
-		doCleanUp();
 	}
 
 	private void releaseMediaPlayer() {
@@ -91,11 +77,6 @@ public class VideoPlayer extends Activity implements SurfaceHolder.Callback {
 		}
 	}
 
-	private void doCleanUp() {
-		mVideoWidth = 0;
-		mVideoHeight = 0;
-
-	}
 
 	@Override
 	public void surfaceChanged(SurfaceHolder arg0, int arg1, int arg2, int arg3) {
@@ -103,9 +84,8 @@ public class VideoPlayer extends Activity implements SurfaceHolder.Callback {
 
 	}
 
-	@Override
-	public void surfaceCreated(SurfaceHolder arg0) {
-		// TODO Auto-generated method stub
+	public void surfaceCreated(SurfaceHolder holder) {
+		iniPlayer();
 
 	}
 
@@ -114,5 +94,6 @@ public class VideoPlayer extends Activity implements SurfaceHolder.Callback {
 		// TODO Auto-generated method stub
 
 	}
+
 
 }
